@@ -1,0 +1,52 @@
+#include <LiquidCrystal.h> // includes the LiquidCrystal Library 
+
+LiquidCrystal lcd(12,11,5,4,3,2); // Creates an LC object. Parameters: (rs, enable, d4, d5, d6, d7) 
+void setup() 
+{ 
+  lcd.begin(16,2);
+ 
+}
+void loop() 
+
+{ 
+ float Voltage=analogRead(A0)*0.004882814;
+ float degreesC = ( Voltage - 0.5 ) * 100;
+  
+ lcd.setCursor(3,0);
+ lcd.print("Temp :");   
+ lcd.setCursor(8,0); 
+ lcd.print(degreesC);
+  if (degreesC<27)
+  {
+    lcd.setCursor(4,1);
+    lcd.print("HEATER IS ON");
+  }
+  if (degreesC>30)
+  {
+    lcd.setCursor(4,1);
+    lcd.print("FAN IS ON");
+  }
+  
+  delay(1000);
+  lcd.clear();
+  
+    int ldr=analogRead(A1);
+  
+  lcd.setCursor(1,0);
+  lcd.print("Intensity");
+  lcd.setCursor(12,0);
+  lcd.print(ldr);
+  if (ldr<100)
+  {
+     lcd.setCursor(4,1);
+     lcd.print("LAMP IS ON");
+  }
+  if (ldr>178)
+  {
+     lcd.setCursor(4,1);
+     lcd.print("LAMP IS OFF");
+  }
+  
+  delay(1000);
+  lcd.clear();
+}
